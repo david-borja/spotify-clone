@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro'
+
+import PlayListItemCard from '@/components/PlayListItemCard.astro'
+import { allPlaylists, songs } from '@/lib/data'
+
+const { id } = Astro.params
+
+const playlist = allPlaylists.find((playlist) => playlist.id === id)
+const playlistSongs = songs.filter((song) => song.albumId === playlist?.albumId)
+
+// cuando se nos queja por getStaticPaths(), tenemos dos opciones
+// 1) Hacer que la página funcione por servidor,
+//    poniendo output: 'server' dentro del astro.config
+// 2) Exportar una función haciendo getStaticPaths y generar todas las páginas estáticas para todas las playlist cada vez que se despliega Spotify
+/*
+  export function getStaticPaths() {
+    return allPlaylists.map((playlist) => ({
+      params: {
+        id: playlist.id,
+      }
+    }))
+  }
+*/
+---
+
+<Layout title="Spotify Clone">
+  <div
+    id="playlist-container"
+    class="relative flex flex-col h-full bg-zinc-900 overflow-x-hidden"
+    transition:name=`playlist ${id} box`
+  >
+    <!-- PageHeader -->
+
+    <header class="flex flex-col gap-8 px-6">
+      <picture class="aspect-square w-52 h-52 flex-none">
+        <img
+          src={playlist?.cover}
+          alt={`Cover of ${playlist?.title}`}
+          class="object-cover w-full h-full rounded-md"
+          transition:name=`playlist ${playlist?.id} image`
+        />
+      </picture>
+    </header>
+    <div class="relative z-10 px-6 pt-10"></div>
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/80"
+    >
+    </div>
+  </div>
+
+  <style></style>
+</Layout>
