@@ -1,5 +1,6 @@
 ---
-import AsideMenu from '../components/AsideMenu.astro'
+import AsideMenu from '@/components/AsideMenu.astro'
+import { Player } from '@/components/Player'
 import { ViewTransitions } from 'astro:transitions'
 
 interface Props {
@@ -30,7 +31,17 @@ const { title } = Astro.props
       >
         <slot />
       </main>
-      <footer class="[grid-area:player] min-h-[100px]">PLAYER</footer>
+      <footer class="[grid-area:player] min-h-[100px]">
+        <!-- Por defecto, este player no tiene interactividad. Es un react server component. Necesitamos que astro también lo cargue en el cliente.
+        idle: carga el componente cuando no esté cargando más recursos (no muy prioritario)
+        load: carga el componente cuando carga la página
+        media: carga el comp dependiendo del viewport con una mediaquery, por ejemplo solo movil
+        only: que solo se renderice en el cliente. Pero cuidado porque puede haber un flasheo ya que no lo ha cargado antes en el servidor
+        visible: lo renderiza en el server, pero en el cliente solo lo carga cuando sea visible (muy bueno para elementos que no están en el viewport. Pero nuestro player siempre está visible)
+        -->
+        <!-- Hay otro problema: cuando estamos reproduciendo una canción y navegamos, deja de sonar porque pierde el estado. Le tenemos que decir a Astro que persista el componente. Podemos hacer esta persistencia gracias a Astro y a las view transitions apis. Al persistirlo, no lo vuelve a renderizar y conserva su estado aunque cambie la url-->
+        <Player client:load transition:name="media-player" transition:persist />
+      </footer>
     </div>
     <style>
       #app {
