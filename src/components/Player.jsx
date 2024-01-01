@@ -28,8 +28,9 @@ export const Play = ({ className }) => (
 )
 
 export function Player() {
-  const { isPlaying, setIsPlaying } = usePlayerStore((state) => state)
-  const [currentSong, setCurrentSong] = useState(null)
+  const { currentMusic, isPlaying, setIsPlaying } = usePlayerStore(
+    (state) => state
+  )
   const audioRef = useRef()
 
   useEffect(() => {
