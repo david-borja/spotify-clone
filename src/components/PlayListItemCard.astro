@@ -17,7 +17,8 @@ const artistsString = artists.join(', ')
   <div
     class="absolute right-4 bottom-20 translate-y-4 transition-all duration-500 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 z-10"
   >
-    <CardPlayButton id={id} />
+    <!-- los componentes de astro por defecto no tienen interactividad, parecido a los react server components -->
+    <CardPlayButton id={id} client:visible />
   </div>
   <a
     href={`/playlist/${id}`}
