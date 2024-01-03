@@ -1,5 +1,6 @@
 import { usePlayerStore } from '@/store/playerStore'
 import { useEffect, useRef, useState } from 'react'
+import { Slider } from './Slider'
 
 export const Pause = ({ className }) => (
   <svg
@@ -46,6 +47,8 @@ export function Player() {
     (state) => state
   )
   const audioRef = useRef()
+  // de todas formas, no entiendo muy bien por qué añade esta ref. Dice porque puede haber un error si al inicio el volumen es 1. Lo dejo comentado y lo descomento si llego a ver el bug
+  // const volumeRef = useRef(1) // no utilizamos un estado porque no tiene sentido que se vuelva a renderizar
 
   useEffect(() => {
     isPlaying ? audioRef.current.play() : audioRef.current.pause()
@@ -56,6 +59,7 @@ export function Player() {
     if (song) {
       const src = `/music/${playlist?.id}/0${song.id}.mp3`
       audioRef.current.src = src
+      // audioRef.current.volume = volumeRef.current
       audioRef.current.play()
     }
   }, [currentMusic])
@@ -77,7 +81,21 @@ export function Player() {
           <audio ref={audioRef} />
         </div>
       </div>
-      <div className="grid place-content-center"></div>
+      <div className="grid place-content-center">
+        <Slider
+          defaultValue={[100]}
+          max={100}
+          min={0}
+          className="w-[95px]"
+          onValueChange={(value) => {
+            const [newVolume] = value
+            const volumeValue = newVolume / 100
+            console.log(volumeValue)
+            // volumeRef.current = volumeValue
+            audioRef.current.volume = volumeValue
+          }}
+        />
+      </div>
     </div>
   )
 }
