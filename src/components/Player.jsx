@@ -73,6 +73,47 @@ const CurrentSong = ({ image, title, artists }) => {
   )
 }
 
+const SongControl = ({ audio }) => {
+  const [currentTime, setCurrentTime] = useState(0)
+
+  useEffect(() => {
+    audio.current.addEventListener('timeupdate', handleTimeUpdate)
+    return () => {
+      audio.current.removeEventListener('timeupdate', handleTimeUpdate)
+    }
+  }) // react y Dan recomiendan NO poner array de dependencias vacío en este caso con un event listener.
+  // Porque cada vez que cambie se limpiará el evento y se volverá a crear como una buena práctica, y no tiene un coste muy grande. Midu sí lo pone
+
+  const handleTimeUpdate = () => {
+    setCurrentTime(audio.current.currentTime)
+  }
+
+  const formatTime = (time) => {
+    if (time == null) return '0:00'
+    const seconds = Math.floor(time % 60)
+    const minutes = Math.floor(time / 60)
+  }
+
+  const duration = audio?.current?.duration ?? 0
+
+  return (
+    <div className="flex gap-x-3 text-xs pt-2">
+      <span className="opacity-50">{currentTime}</span>
+      <Slider
+        defaultValue={[0]}
+        value={[currentTime]}
+        max={audio?.current?.duration ?? 0}
+        min={0}
+        className="w-[500px]"
+        onValueChange={(value) => {
+          audio.current.currentTime = value
+        }}
+      />
+      <span className="opacity-50">{duration - currentTime}</span>
+    </div>
+  )
+}
+
 const VolumeControl = () => {
   const volume = usePlayerStore((state) => state.volume)
   const setVolume = usePlayerStore((state) => state.setVolume)
@@ -147,10 +188,11 @@ export function Player() {
         <CurrentSong {...currentMusic.song} />
       </div>
       <div className="grid place-content-center gap-4 flex-1">
-        <div className="flex justify-center">
+        <div className="flex justify-center flex-col items-center">
           <button className="bg-white rounded-full p-2" onClick={handleClick}>
             {isPlaying ? <Pause /> : <Play />}
           </button>
+          <SongControl audio={audioRef} />
           <audio ref={audioRef} />
         </div>
       </div>
