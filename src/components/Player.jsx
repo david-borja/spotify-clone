@@ -108,7 +108,7 @@ const SongControl = ({ audio }) => {
         value={[currentTime]}
         max={audio?.current?.duration ?? 0}
         min={0}
-        className="w-[500px]"
+        className="w-[400px]"
         onValueChange={(value) => {
           const [newCurrentTime] = value // value es un array porque un range slider puede tener más de un punto
           audio.current.currentTime = newCurrentTime
@@ -189,7 +189,7 @@ export function Player() {
 
   return (
     <div className="flex flex-row justify-between w-full px-4 z-50">
-      <div>
+      <div className="w-[200px]">
         <CurrentSong {...currentMusic.song} />
       </div>
       <div className="grid place-content-center gap-4 flex-1">
