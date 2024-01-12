@@ -92,13 +92,15 @@ const SongControl = ({ audio }) => {
     if (time == null) return '0:00'
     const seconds = Math.floor(time % 60)
     const minutes = Math.floor(time / 60)
+
+    return `${minutes}:${seconds.toString().padStart(2, '0')}` // ojo trucazo del padStart
   }
 
   const duration = audio?.current?.duration ?? 0
 
   return (
     <div className="flex gap-x-3 text-xs pt-2">
-      <span className="opacity-50">{currentTime}</span>
+      <span className="opacity-50">{formatTime(currentTime)}</span>
       <Slider
         defaultValue={[0]}
         value={[currentTime]}
@@ -106,10 +108,11 @@ const SongControl = ({ audio }) => {
         min={0}
         className="w-[500px]"
         onValueChange={(value) => {
-          audio.current.currentTime = value
+          const [newCurrentTime] = value // value es un array porque un range slider puede tener más de un punto
+          audio.current.currentTime = newCurrentTime
         }}
       />
-      <span className="opacity-50">{duration - currentTime}</span>
+      <span className="opacity-50">{formatTime(duration)}</span>
     </div>
   )
 }
