@@ -100,7 +100,9 @@ const SongControl = ({ audio }) => {
 
   return (
     <div className="flex gap-x-3 text-xs pt-2">
-      <span className="opacity-50">{formatTime(currentTime)}</span>
+      <span className="opacity-50 w-12 text-right">
+        {formatTime(currentTime)}
+      </span>
       <Slider
         defaultValue={[0]}
         value={[currentTime]}
@@ -112,7 +114,7 @@ const SongControl = ({ audio }) => {
           audio.current.currentTime = newCurrentTime
         }}
       />
-      <span className="opacity-50">{formatTime(duration)}</span>
+      <span className="opacity-50 w-12">{formatTime(duration)}</span>
     </div>
   )
 }
