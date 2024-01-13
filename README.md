@@ -74,3 +74,11 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+# Next Steps
+
+[] Show what playlist is playing on the sidebar
+[] Show what song is playing on the playlist table
+[] Play song when clicking a row on the playlist table
+[] Back and forth navigation arrows on playlist table
+[] Faded color background on playlist table
