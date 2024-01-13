@@ -31,7 +31,7 @@ const { title } = Astro.props
       >
         <slot />
       </main>
-      <footer class="[grid-area:player]">
+      <footer class="[grid-area:player] h-[80px]">
         <!-- Por defecto, este player no tiene interactividad. Es un react server component. Necesitamos que astro también lo cargue en el cliente.
         idle: carga el componente cuando no esté cargando más recursos (no muy prioritario)
         load: carga el componente cuando carga la página
