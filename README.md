@@ -1,3 +1,6 @@
+# Spotify Clone
+Source repo: [spotify-twitch-clone](https://github.com/midudev/spotify-twitch-clone) by midudev
+
 # Astro Starter Kit: Basics
 
 ```sh
@@ -77,8 +80,8 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 
 # Next Steps
 
-[] Show what playlist is playing on the sidebar
-[] Show what song is playing on the playlist table
-[] Play song when clicking a row on the playlist table
-[] Back and forth navigation arrows on playlist table
-[] Faded color background on playlist table
+- [] Show what playlist is playing on the sidebar
+- [] Show what song is playing on the playlist table
+- [] Play song when clicking a row on the playlist table
+- [] Back and forth navigation arrows on playlist table
+- [] Faded color background on playlist table
